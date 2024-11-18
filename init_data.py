@@ -1,28 +1,36 @@
 import csv
 from sqlalchemy.orm import Session
-from backend.app.models import User
-from backend.app.database import SessionLocal, engine
+from backend.app.database import SessionLocal, engine, Base
+from backend.app.models import User  # Remplacez "User" par vos modèles si nécessaire
 
-# Initialiser la base de données
-from backend.app.models import Base
+# Importez le modèle de base
 Base.metadata.create_all(bind=engine)
 
-# Charger les données
+# Fonction pour charger les données
 def load_data():
+    # Ouvrez une session de base de données
     session = SessionLocal()
-    with open('dataset/gym_members_exercise_tracking.csv', 'r') as f:
-        reader = csv.DictReader(f)
+
+    # Chemin vers votre dataset CSV
+    csv_file_path = "/app/dataset/gym_members_exercise_tracking.csv"
+
+    # Chargement des données depuis le fichier CSV
+    with open(csv_file_path, newline='', encoding="utf-8") as csvfile:
+        reader = csv.DictReader(csvfile)
         for row in reader:
+            # Création d'un utilisateur (ajustez selon vos modèles)
             user = User(
-                name=row['Name'],
-                age=int(row['Age']),
-                gender=row['Gender'],
-                weight=float(row['Weight (kg)']),
-                height=float(row['Height (m)'])
+                age=int(row["Age"]),
+                gender=row["Gender"],
+                weight=float(row["Weight (kg)"]),
+                height=float(row["Height (m)"]),
             )
             session.add(user)
-        session.commit()
+
+    # Commit des données dans la base
+    session.commit()
     session.close()
 
+# Appel de la fonction lors de l'exécution directe du script
 if __name__ == "__main__":
     load_data()

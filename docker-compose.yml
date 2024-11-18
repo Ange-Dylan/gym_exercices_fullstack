@@ -1,26 +1,31 @@
-version: '3.9'
+version: "3.8"
 
 services:
-  db:
-    image: postgres:13
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: gymdb
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
   backend:
     build:
-      context: ./backend
+      context: .
+      dockerfile: Dockerfile
+    container_name: gym_exercices_fullstack-backend
     ports:
-      - "8000:8000"
-    environment:
-      DATABASE_URL: postgresql://postgres:password@db/gymdb
+      - "8000:8000"  # Expose le port 8000 pour l'API FastAPI
+    volumes:
+      - ./backend:/app/backend  # Monte le dossier backend local dans le conteneur
+      - ./init_data.py:/app/init_data.py  # Monte init_data.py dans le conteneur
+      - ./dataset:/app/dataset  # Monte le dossier dataset dans le conteneur
     depends_on:
-      - db
+      - db  # Assure que le service `db` est démarré avant `backend`
+
+  db:
+    image: postgres:13
+    container_name: gym_exercices_fullstack-db
+    environment:
+      POSTGRES_USER: postgres  # Nom d'utilisateur PostgreSQL
+      POSTGRES_PASSWORD: password  # Mot de passe PostgreSQL
+      POSTGRES_DB: gym_database  # Nom de la base de données
+    ports:
+      - "5432:5432"  # Expose le port PostgreSQL
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Stockage persistant pour PostgreSQL
 
 volumes:
   postgres_data:
