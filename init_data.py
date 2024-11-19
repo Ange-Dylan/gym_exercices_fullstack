@@ -1,9 +1,17 @@
 import csv
 from backend.app.database import SessionLocal, Base, engine
 from backend.app.models import User
+from passlib.context import CryptContext
+
+# Contexte pour hachage des mots de passe
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+# Fonction pour hacher les mots de passe
+def hash_password(password: str) -> str:
+    return pwd_context.hash(password)
 
 # Supprime toutes les tables et les recrée
-Base.metadata.drop_all(bind=engine)
+
 Base.metadata.create_all(bind=engine)
 
 # Fonction pour charger les données depuis le fichier CSV
@@ -11,14 +19,22 @@ def load_data():
     session = SessionLocal()
     try:
         # Chemin vers le fichier CSV
-        csv_file_path = "/app/dataset/gym_members_exercise_tracking.csv"
+        csv_file_path = "./dataset/gym_members_exercise_tracking.csv"
         
         # Ouvrir le fichier CSV et insérer les données
         with open(csv_file_path, newline='', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
-            for row in reader:
-                # Création d'un utilisateur (ajustez selon vos modèles)
+            for index, row in enumerate(reader):
+                # Générer un username unique basé sur l'index
+                username = f"user{index + 1}"
+                
+                # Hacher un mot de passe par défaut pour chaque utilisateur
+                hashed_pwd = hash_password("defaultpassword")
+                
+                # Création d'un utilisateur
                 user = User(
+                    username=username,
+                    hashed_password=hashed_pwd,
                     age=int(row["Age"]),
                     gender=row["Gender"],
                     weight_kg=float(row["Weight (kg)"]),

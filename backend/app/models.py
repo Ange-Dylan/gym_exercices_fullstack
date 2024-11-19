@@ -3,8 +3,10 @@ from .database import Base
 
 class User(Base):
     __tablename__ = "users"
-
+    
     id = Column(Integer, primary_key=True, index=True)  # Clé primaire unique
+    username = Column(String, unique=True, index=True)  # Username
+    hashed_password = Column(String)  # Password
     age = Column(Integer)  # Âge
     gender = Column(String)  # Sexe (Male/Female)
     weight_kg = Column(Float)  # Poids (en kg)
