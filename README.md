@@ -46,23 +46,6 @@ ReDoc : http://localhost:8000/redoc
 
 ## Structure du projet
 
-gym-api/
-├── backend/
-│   ├── app/
-│   │   ├── __init__.py
-│   │   ├── database.py        # Configuration de la base de données
-│   │   ├── models.py          # Définition des modèles SQLAlchemy
-│   │   ├── schemas.py         # Schémas Pydantic pour validation
-│   │   ├── routers/
-│   │   │   ├── auth.py        # Routes d'authentification
-│   │   │   ├── users.py       # Routes pour la gestion des utilisateurs
-│   │   ├── utils.py           # Fonctions utilitaires (hash, JWT, etc.)
-│   ├── __init__.py
-├── init_data.py               # Script pour charger les données initiales
-├── Dockerfile                 # Dockerfile pour l'application
-├── docker-compose.yml         # Configuration Docker Compose
-├── requirements.txt           # Dépendances Python
-└── README.md                  # Documentation du projet
 ## Points importants
 ### Tests
 Pour lancer les tests unitaires :
@@ -76,16 +59,16 @@ Exécuter le script avec Docker :
 
 
 docker exec -it gym_exercices_fullstack-backend python init_data.py
-### Endpoints principaux
-## Authentification
+## Endpoints principaux
+### Authentification
 POST /auth/token : Obtenir un token JWT pour un utilisateur.
-## Utilisateurs
+### Utilisateurs
 - POST /users/ : Ajouter un nouvel utilisateur.
 - GET /users/ : Lister tous les utilisateurs.
 - GET /users/{user_id} : Récupérer les informations d'un utilisateur par ID.
 - PUT /users/{user_id} : Mettre à jour les informations d'un utilisateur.
 - DELETE /users/{user_id} : Supprimer un utilisateur.
-### Contribution
+## Contribution
 Les contributions sont les bienvenues ! Pour contribuer :
 
 Forkez ce dépôt.
@@ -93,10 +76,10 @@ Créez une branche (git checkout -b ma-branche).
 Effectuez vos modifications.
 Poussez vos modifications (git push origin ma-branche).
 Créez une Pull Request.
-### Licence
+## Licence
 Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus d'informations.
 
-### Contact
+## Contact
 Pour toute question, contactez-nous à support@gymapi.com.
 
 
