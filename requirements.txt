@@ -5,3 +5,7 @@ psycopg2-binary
 pydantic
 python-jose
 passlib[bcrypt]
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+pytest
+httpx
