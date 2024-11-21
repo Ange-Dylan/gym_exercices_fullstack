@@ -109,7 +109,7 @@ def root():
     <body>
         <div class="header">
             <h1>Bienvenue sur le Gym API</h1>
-            <p>Votre solution complète pour la gestion d'adhérents et des entraînements cardiovasculaires</p>
+            <p>Votre solution complète pour la gestion d'adhérents et des entraînements cardiovasculaires !</p>
         </div>
         <div class="container">
             <h2>Statistiques du tableau de bord</h2>
@@ -118,14 +118,20 @@ def root():
                     <tr>
                         <th>Total des adhérents</th>
                         <th>Moyenne des calories brûlées</th>
-                        <th>Moyenne du BMI</th>
+                        <th>Calories brûlées (min)</th>
+                        <th>Calories brûlées (max)</th>
+                        <th>Médiane du BMI</th>
+                        <th>Parité</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>{total_members}</td>
                         <td>{avg_calories:.2f}</td>
-                        <td>{avg_bmi:.2f}</td>
+                        <td>{min_calories:.2f}</td>
+                        <td>{max_calories:.2f}</td>
+                        <td>{median_bmi:.2f}</td>
+                        <td>{gender_distribution}</td>
                     </tr>
                 </tbody>
             </table>
@@ -153,14 +159,27 @@ def root():
     # Calculs des statistiques
     total_members = data.shape[0]
     avg_calories = data["Calories_Burned"].mean()
-    avg_bmi = data["BMI"].mean()
+    min_calories = data["Calories_Burned"].min()
+    max_calories = data["Calories_Burned"].max()
+    median_bmi = data["BMI"].median()
+    gender_counts = data["Gender"].value_counts()
+    gender_distribution = ", ".join([f"{k}: {v}" for k, v in gender_counts.items()])
 
     # Retourner la page HTML avec les données insérées
     return HTMLResponse(content=html_content.format(
         total_members=total_members,
         avg_calories=avg_calories,
-        avg_bmi=avg_bmi
+        min_calories=min_calories,
+        max_calories=max_calories,
+        median_bmi=median_bmi,
+        gender_distribution=gender_distribution
     ))
+   
+   
+   
+   
+   
+   
 
 @app.get("/dashboard", response_class=HTMLResponse)
 def dashboard():
@@ -243,7 +262,7 @@ def dashboard():
         </style>
     </head>
     <body>
-        <h1>Tableau de bord interactif</h1>
+        <h1>Gym API Dashboard</h1>
         <div class="chart-container">
             <h2>Répartition des fréquences d'entraînement</h2>
             {graph1_html}
