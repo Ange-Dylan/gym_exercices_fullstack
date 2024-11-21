@@ -10,7 +10,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 def hash_password(password: str) -> str:
     return pwd_context.hash(password)
 
-# Supprime toutes les tables et les recrée
+
 
 Base.metadata.create_all(bind=engine)
 

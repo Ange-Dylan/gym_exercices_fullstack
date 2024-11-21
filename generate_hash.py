@@ -4,7 +4,7 @@ from passlib.context import CryptContext
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # Remplacez "testpassword" par le mot de passe que vous voulez hacher
-plain_password = "testpassword"
+plain_password = "adminpassword"
 
 # Générez le mot de passe haché
 hashed_password = pwd_context.hash(plain_password)
