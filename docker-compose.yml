@@ -24,5 +24,9 @@ services:
       - app-network
     ports:
       - "8000:8000"  # Expose le port 8000
+    volumes:
+      - ./dataset:/app/dataset  # Montez le dossier dataset dans le conteneur
+
 networks:
   app-network:
+  
