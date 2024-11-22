@@ -25,7 +25,7 @@ Avant de commencer, assurez-vous d'avoir installé :
 
 ---
 
-## Installation et Lancement
+## Installation et lancement
 
 ### 1. Cloner le dépôt
 
