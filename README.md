@@ -68,6 +68,36 @@ POST /auth/token : Obtenir un token JWT pour un utilisateur.
 - GET /users/{user_id} : Récupérer les informations d'un utilisateur par ID.
 - PUT /users/{user_id} : Mettre à jour les informations d'un utilisateur.
 - DELETE /users/{user_id} : Supprimer un utilisateur.
+
+## Interface Admin
+L'interface utilisateur admin.html permet de :
+IMPORTANT : pour la connexion il faut mettre "admin" en username et "adminpassword" pour le password hashé !
+- Afficher la liste des utilisateurs.
+- Créer un utilisateur avec validation (confirmation de mot de passe).
+- Supprimer un utilisateur avec une confirmation.
+- Utiliser une interface ergonomique avec défilement horizontal pour gérer les colonnes étendues.
+  
+## Développement
+### Installation locale
+Si vous ne souhaitez pas utiliser Docker, voici comment exécuter l'application localement :
+
+1. Installez les dépendances :
+
+
+pip install -r requirements.txt
+2. Configurez la base de données dans backend/app/database.py.
+
+3. Lancez le serveur :
+
+uvicorn backend.main:app --reload
+
+## Améliorations futures
+- Interface client : Développement d'une interface pour les utilisateurs finaux.
+- Graphiques interactifs : Ajout d'analyses et de visualisations pour les données d'entraînement.
+- Tests automatisés : Étendre la couverture des tests avec Pytest.
+
+
+  
 ## Contribution
 Les contributions sont les bienvenues ! Pour contribuer :
 
@@ -78,6 +108,9 @@ Poussez vos modifications (git push origin ma-branche).
 Créez une Pull Request.
 ## Licence
 Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus d'informations.
+
+## Auteurs
+[Rémi Labou & Ange-Dylan Gnaglo] - Développeur principal
 
 ## Contact
 Pour toute question, contactez-nous à support@gymapi.com ou plutôt ange-dylan.gnaglo@edu.esiee.fr / remi.labou@edu.esiee.fr.
