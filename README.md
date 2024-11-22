@@ -48,7 +48,6 @@ Dashboard : http://localhost:8000/dashboard
 Swagger UI : http://localhost:8000/docs
 ReDoc : http://localhost:8000/redoc
 
-## Structure du projet
 
 ## Points importants
 
