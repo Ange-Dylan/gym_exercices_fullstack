@@ -1,16 +1,17 @@
 # Gym API Project
 
 ## Description
-Le **Gym API** est une application qui permet de gérer des données liées aux adhérents d'une salle de sport, incluant des fonctionnalités d'authentification, de gestion des utilisateurs et de suivi des entraînements. 
+Une application web complète pour gérer les utilisateurs d'une salle de sport. Ce projet comprend une API REST construite avec **FastAPI**, une interface utilisateur d'administration construite en **HTML/CSS/JavaScript**, et une base de données **PostgreSQL**. Tout est entièrement déployable avec **Docker**.
 
-Ce projet est construit en utilisant **FastAPI** pour le back-end, **PostgreSQL** comme base de données, et il est conteneurisé avec **Docker**.
 
 ---
 
 ## Fonctionnalités
 - **Authentification** : Gestion des utilisateurs via JWT (JSON Web Token).
-- **CRUD Utilisateurs** : Ajouter, lire, mettre à jour et supprimer des informations d'utilisateurs.
+- **CRUD Utilisateurs** : Ajouter, lire, mettre à jour, filtrage par âge, genre, type de training etc. et supprimer des informations d'utilisateurs.
 - **Suivi des entraînements** : Analyse des données sur les entraînements des adhérents.
+- **Tableau de bord** : Visualisez les statistiques d'entraînement en utilisant des graphiques interactifs.
+- **Docker Compose** : Déploiement simplifié
 - **Swagger UI** : Documentation interactive pour tester les endpoints.
 - **ReDoc** : Documentation technique alternative.
 
@@ -28,10 +29,10 @@ Avant de commencer, assurez-vous d'avoir installé :
 
 ### 1. Cloner le dépôt
 
-git clone https://github.com/votre-utilisateur/gym-api.git
-cd gym-api
-### 2. Configuration de l'environnement
-Créez un fichier .env dans le répertoire racine du projet avec les informations suivantes :
+git clone https://github.com/Ange-Dylan/gym_exercices_fullstack.git
+cd gym_exercices_fullstack
+### 2. OPTIONNEL : Configuration de l'environnement
+Optionnel : Créez un fichier si nécessaire .env dans le répertoire racine du projet avec les informations suivantes :
 
 DATABASE_URL=postgresql://postgres:password@db:5432/gym_database
 SECRET_KEY=votre_cle_secrete
@@ -47,10 +48,6 @@ ReDoc : http://localhost:8000/redoc
 ## Structure du projet
 
 ## Points importants
-### Tests
-Pour lancer les tests unitaires :
-
-pytest tests/
 
 ### Gestion des données initiales
 Le fichier init_data.py permet d'importer des données initiales dans la base de données depuis un fichier CSV.
