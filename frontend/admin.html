@@ -158,34 +158,82 @@
             </table>
         </div>
         <h2>2. Créer un nouvel utilisateur</h2>
-        <form id="create-user-form">
-            <div class="form-group">
+            <form id="create-user-form">
+            <div>
                 <label for="username">Nom d'utilisateur :</label>
-                <input type="text" id="username" required>
+                <input type="text" id="username" name="username" required />
             </div>
-            <div class="form-group">
+            <div>
                 <label for="password">Mot de passe :</label>
-                <input type="password" id="password" required>
+                <input type="password" id="password" name="password" required />
             </div>
-            <div class="form-group">
+            <div>
                 <label for="confirm-password">Confirmer le mot de passe :</label>
-                <input type="password" id="confirm-password" required>
+                <input type="password" id="confirm-password" name="confirm-password" required />
             </div>
-            <div class="form-group">
+            <div>
                 <label for="age">Âge :</label>
-                <input type="number" id="age">
+                <input type="number" id="age" name="age" />
             </div>
-            <div class="form-group">
+            <div>
                 <label for="gender">Genre :</label>
-                <select id="gender">
-                    <option value="">Sélectionner</option>
-                    <option value="Male">Homme</option>
-                    <option value="Female">Femme</option>
-                </select>
+                <input type="text" id="gender" name="gender" />
+            </div>
+            <div>
+                <label for="weight_kg">Poids (kg) :</label>
+                <input type="number" id="weight_kg" name="weight_kg" step="0.1" />
+            </div>
+            <div>
+                <label for="height_m">Taille (m) :</label>
+                <input type="number" id="height_m" name="height_m" step="0.01" />
+            </div>
+            <div>
+                <label for="max_bpm">BPM max :</label>
+                <input type="number" id="max_bpm" name="max_bpm" />
+            </div>
+            <div>
+                <label for="avg_bpm">BPM moyen :</label>
+                <input type="number" id="avg_bpm" name="avg_bpm" />
+            </div>
+            <div>
+                <label for="resting_bpm">BPM repos :</label>
+                <input type="number" id="resting_bpm" name="resting_bpm" />
+            </div>
+            <div>
+                <label for="session_duration_hours">Durée entraînement (h) :</label>
+                <input type="number" id="session_duration_hours" name="session_duration_hours" step="0.1" />
+            </div>
+            <div>
+                <label for="calories_burned">Calories brûlées :</label>
+                <input type="number" id="calories_burned" name="calories_burned" />
+            </div>
+            <div>
+                <label for="workout_type">Type d'entraînement :</label>
+                <input type="text" id="workout_type" name="workout_type" />
+            </div>
+            <div>
+                <label for="fat_percentage">% graisse :</label>
+                <input type="number" id="fat_percentage" name="fat_percentage" step="0.1" />
+            </div>
+            <div>
+                <label for="water_intake_liters">Hydratation (litres) :</label>
+                <input type="number" id="water_intake_liters" name="water_intake_liters" step="0.1" />
+            </div>
+            <div>
+                <label for="workout_frequency_days_week">Fréquence entraînement (jours/semaine) :</label>
+                <input type="number" id="workout_frequency_days_week" name="workout_frequency_days_week" />
+            </div>
+            <div>
+                <label for="experience_level">Niveau d'expérience :</label>
+                <input type="text" id="experience_level" name="experience_level" />
+            </div>
+            <div>
+                <label for="bmi">BMI :</label>
+                <input type="number" id="bmi" name="bmi" step="0.1" />
             </div>
             <button type="submit">Créer un utilisateur</button>
-        </form>
-    </div>
+            </form>
+            <div id="create-user-result" class="response-box"></div>
     <script>
         // Fetch et afficher les utilisateurs
         document.getElementById("view-users").addEventListener("click", async () => {
