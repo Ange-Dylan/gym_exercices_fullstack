@@ -23,6 +23,23 @@ class UserBase(BaseModel):
 
     model_config = ConfigDict(from_attributes=True)  # Remplacement de orm_mode par from_attributes
 
+# Schéma pour mettre à jour un utilisateur
+class UserUpdate(BaseModel):
+    age: Optional[int] = None
+    gender: Optional[str] = None
+    weight_kg: Optional[float] = None
+    height_m: Optional[float] = None
+    max_bpm: Optional[int] = None
+    avg_bpm: Optional[int] = None
+    resting_bpm: Optional[int] = None
+    session_duration_hours: Optional[float] = None
+    calories_burned: Optional[float] = None
+    workout_type: Optional[str] = None
+    fat_percentage: Optional[float] = None
+    water_intake_liters: Optional[float] = None
+    workout_frequency_days_week: Optional[int] = None
+    experience_level: Optional[str] = None
+    bmi: Optional[float] = None
 
 # Schema for creating a new user
 class UserCreate(UserBase):
