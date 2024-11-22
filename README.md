@@ -39,9 +39,12 @@ SECRET_KEY=votre_cle_secrete
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 ### 3. Lancer l'application avec Docker
-
+docker-compose down
 docker-compose up --build
 ### 4. Accéder à l'application
+Tous les liens sont sur la page de garde dans tous les cas !  
+
+Dashboard : http://localhost:8000/dashboard
 Swagger UI : http://localhost:8000/docs
 ReDoc : http://localhost:8000/redoc
 
@@ -77,7 +80,7 @@ Créez une Pull Request.
 Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus d'informations.
 
 ## Contact
-Pour toute question, contactez-nous à support@gymapi.com.
+Pour toute question, contactez-nous à support@gymapi.com ou plutôt ange-dylan.gnaglo@edu.esiee.fr / remi.labou@edu.esiee.fr.
 
 
 
