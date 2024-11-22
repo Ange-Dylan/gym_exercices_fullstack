@@ -4,6 +4,8 @@ import pandas as pd
 import plotly.express as px
 import plotly.io as pio
 from backend.app.routers import auth, users  # Import des fichiers de routes
+from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title="Gym API",
@@ -23,7 +25,19 @@ app = FastAPI(
 app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
 app.include_router(users.router, prefix="/users", tags=["Users"])
 
-# Charger le fichier CSV
+# Ajout du frontend
+app.mount("/frontend", StaticFiles(directory="./frontend"), name="frontend")
+
+# Configuration CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Chargement du fichier CSV
 def load_csv():
     csv_path = "dataset/gym_members_exercise_tracking.csv"
     try:
@@ -140,6 +154,7 @@ def root():
                 <li><a href="/docs" target="_blank">Documentation Swagger</a> - Explorez et testez l'API.</li>
                 <li><a href="/redoc" target="_blank">Documentation ReDoc</a> - Documentation détaillée et stylée.</li>
                 <li><a href="/dashboard" target="_blank">Tableau de bord interactif</a> - Visualisez les données sous forme de graphiques interactifs.</li>
+                <li><a href="/login" target="_blank">Page de connexion admin</a> - Accédez à l'interface admin.</li>
             </ul>
             <h2>Contact</h2>
             <p>Version: <strong>1.0.0</strong></p>
@@ -282,3 +297,14 @@ def dashboard():
     </body>
     </html>
     """)
+    
+    
+@app.get("/admin", response_class=HTMLResponse)
+def admin_interface():
+    with open("frontend/admin.html", "r", encoding="utf-8") as f:
+        return HTMLResponse(content=f.read())
+    
+@app.get("/login", response_class=HTMLResponse)
+def login_page():
+    with open("frontend/login.html", "r", encoding="utf-8") as f:
+        return HTMLResponse(content=f.read())

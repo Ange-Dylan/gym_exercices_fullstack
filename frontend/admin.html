@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interface Admin - Gym API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f4f6;
+            color: #1a202c;
+        }
+
+        header {
+            background-color: #0073e6;
+            color: white;
+            padding: 1em 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2em auto;
+            background: white;
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #0073e6;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+
+        .btn-view {
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .btn-view:hover {
+            background-color: #005bb5;
+        }
+
+        .form-group {
+            margin-bottom: 1em;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 0.5em;
+            font-size: 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Interface Admin - Gym API</h1>
+    </header>
+    <div class="container">
+        <h2>1. Gestion des utilisateurs</h2>
+        <button class="btn-view" id="view-users">Voir tous les utilisateurs</button>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom d'utilisateur</th>
+                        <th>Âge</th>
+                        <th>Genre</th>
+                        <th>Niveau d'expérience</th>
+                        <th>Poids (kg)</th>
+                        <th>Taille (m)</th>
+                        <th>BPM max</th>
+                        <th>BPM moyen</th>
+                        <th>BPM repos</th>
+                        <th>Durée entraînement (h)</th>
+                        <th>Calories brûlées</th>
+                        <th>Type d'entraînement</th>
+                        <th>% graisse</th>
+                        <th>Hydratation (litres)</th>
+                        <th>Fréquence entraînement</th>
+                        <th>BMI</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="user-list">
+                    <!-- Les données des utilisateurs seront insérées ici -->
+                </tbody>
+            </table>
+        </div>
+        <h2>2. Créer un nouvel utilisateur</h2>
+        <form id="create-user-form">
+            <div class="form-group">
+                <label for="username">Nom d'utilisateur :</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirmer le mot de passe :</label>
+                <input type="password" id="confirm-password" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Âge :</label>
+                <input type="number" id="age">
+            </div>
+            <div class="form-group">
+                <label for="gender">Genre :</label>
+                <select id="gender">
+                    <option value="">Sélectionner</option>
+                    <option value="Male">Homme</option>
+                    <option value="Female">Femme</option>
+                </select>
+            </div>
+            <button type="submit">Créer un utilisateur</button>
+        </form>
+    </div>
+    <script>
+        // Fetch et afficher les utilisateurs
+        document.getElementById("view-users").addEventListener("click", async () => {
+            const response = await fetch("http://localhost:8000/users/");
+            const users = await response.json();
+            const userList = document.getElementById("user-list");
+            userList.innerHTML = users.map(user => `
+                <tr>
+                    <td>${user.id}</td>
+                    <td>${user.username}</td>
+                    <td>${user.age || 'N/A'}</td>
+                    <td>${user.gender || 'N/A'}</td>
+                    <td>${user.experience_level || 'N/A'}</td>
+                    <td>${user.weight_kg || 'N/A'}</td>
+                    <td>${user.height_m || 'N/A'}</td>
+                    <td>${user.max_bpm || 'N/A'}</td>
+                    <td>${user.avg_bpm || 'N/A'}</td>
+                    <td>${user.resting_bpm || 'N/A'}</td>
+                    <td>${user.session_duration_hours || 'N/A'}</td>
+                    <td>${user.calories_burned || 'N/A'}</td>
+                    <td>${user.workout_type || 'N/A'}</td>
+                    <td>${user.fat_percentage || 'N/A'}</td>
+                    <td>${user.water_intake_liters || 'N/A'}</td>
+                    <td>${user.workout_frequency_days_week || 'N/A'}</td>
+                    <td>${user.bmi || 'N/A'}</td>
+                    <td><button class="btn-delete" onclick="deleteUser(${user.id})">Supprimer</button></td>
+                </tr>
+            `).join("");
+        });
+
+        // Créer un utilisateur
+        document.getElementById("create-user-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+            const age = document.getElementById("age").value;
+            const gender = document.getElementById("gender").value;
+
+            if (password !== confirmPassword) {
+                alert("Les mots de passe ne correspondent pas !");
+                return;
+            }
+
+            const response = await fetch("http://localhost:8000/users/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password, age, gender })
+            });
+
+            if (response.ok) {
+                alert("Utilisateur créé !");
+                document.getElementById("create-user-form").reset();
+            } else {
+                alert("Erreur lors de la création de l'utilisateur.");
+            }
+        });
+
+        // Supprimer un utilisateur
+        async function deleteUser(userId) {
+            if (!confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ?")) return;
+
+            const response = await fetch(`http://localhost:8000/users/${userId}`, { method: "DELETE" });
+
+            if (response.ok) {
+                alert("Utilisateur supprimé !");
+                document.getElementById("view-users").click(); // Refresh user list
+            } else {
+                alert("Erreur lors de la suppression de l'utilisateur.");
+            }
+        }
+    </script>
+</body>
+</html>
